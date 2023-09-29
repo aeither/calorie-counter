@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +23,9 @@ import Head from "next/head";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import WebApp from "@twa-dev/sdk";
+import { MainButton } from "@twa-dev/sdk/react";
+WebApp.ready();
 
 const formSchema = z.object({
   ingredients: z.string(),
@@ -154,6 +157,22 @@ export default function Home() {
         <meta name="description" content="Calorie Counter Telegram Mini App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      {/* Telegram Main Button */}
+      <MainButton
+        text="More"
+        onClick={() =>
+          WebApp.showPopup({
+            message: "Pop up",
+            buttons: [
+              { id: "default", type: "default", text: "Confirm" },
+              { id: "delete", type: "destructive", text: "Delete" },
+              { id: "cancel", type: "cancel" },
+            ],
+          })
+        }
+      />
+
       <main className="flex min-h-screen flex-col items-center justify-center">
         <div>
           <div className="space-y-2 pb-4">
