@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card.tsx";
 import {
   Form,
   FormControl,
@@ -13,13 +13,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { type FoodSearchResponse } from "@/lib/types";
+} from "@/components/ui/form.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { Separator } from "@/components/ui/separator.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
+import { type FoodSearchResponse } from "@/lib/types.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Head from "next/head";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -43,7 +42,8 @@ export default function Home() {
   const [cart, setCart] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [cartText, setCartText] = useState<string>("");
-  const [ingredients, setIngredients] = useState<string>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [, setIngredients] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,7 +63,7 @@ export default function Home() {
   const addToSelected = (item: Item) => {
     const updatedCart = [...cart];
     const existingItem = updatedCart.find(
-      (cartItem) => cartItem.id === item.id,
+      (cartItem) => cartItem.id === item.id
     );
 
     if (existingItem) {
@@ -78,14 +78,14 @@ export default function Home() {
   const reduceQuantity = (item: Item) => {
     const updatedCart = [...cart];
     const existingItem = updatedCart.find(
-      (cartItem) => cartItem.id === item.id,
+      (cartItem) => cartItem.id === item.id
     );
 
     if (existingItem && existingItem.quantity > 1) {
       existingItem.quantity--;
     } else {
       const itemIndex = updatedCart.findIndex(
-        (cartItem) => cartItem.id === item.id,
+        (cartItem) => cartItem.id === item.id
       );
       if (itemIndex !== -1) {
         updatedCart.splice(itemIndex, 1); // Remove the item from the cart if quantity is 1 or less
@@ -98,7 +98,7 @@ export default function Home() {
   const increaseQuantity = (item: Item) => {
     const updatedCart = [...cart];
     const existingItem = updatedCart.find(
-      (cartItem) => cartItem.id === item.id,
+      (cartItem) => cartItem.id === item.id
     );
 
     if (existingItem) {
@@ -123,7 +123,7 @@ export default function Home() {
   };
 
   const handleSearch = async () => {
-    const apiKey = process.env.NEXT_PUBLIC_USDA_API_KEY;
+    const apiKey = import.meta.env.VITE_USDA_API_KEY as string | undefined;
     if (typeof apiKey !== "string") {
       console.log("apiKey is NOT string");
       return;
@@ -152,12 +152,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Calorie Counter</title>
-        <meta name="description" content="Calorie Counter Telegram Mini App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       {/* Telegram Main Button */}
       <MainButton
         text="More"
@@ -191,7 +185,7 @@ export default function Home() {
               <FormField
                 control={form.control}
                 name="ingredients"
-                render={({ field }) => (
+                render={({}) => (
                   <FormItem>
                     <FormLabel>Ingredients</FormLabel>
                     <FormControl>
@@ -202,7 +196,7 @@ export default function Home() {
                             placeholder="Search items..."
                             value={searchQuery}
                             onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
+                              e: React.ChangeEvent<HTMLInputElement>
                             ) => setSearchQuery(e.target.value)}
                           />
                           <Button
