@@ -41,22 +41,42 @@ const initialItems: Item[] = [
   {
     id: 1,
     name: "Bread",
-    quantity: 200, // grams
+    quantity: 1, // grams
   },
   {
     id: 2,
-    name: "Banana",
-    quantity: 120,
+    name: "Rice",
+    quantity: 1,
   },
   {
     id: 3,
-    name: "Eggs",
-    quantity: 50,
+    name: "Tomato",
+    quantity: 1,
   },
   {
     id: 4,
-    name: "Rice",
-    quantity: 100,
+    name: "Apple",
+    quantity: 1,
+  },
+  {
+    id: 5,
+    name: "Chicken",
+    quantity: 1,
+  },
+  {
+    id: 6,
+    name: "Beef",
+    quantity: 1,
+  },
+  {
+    id: 7,
+    name: "Pork",
+    quantity: 1,
+  },
+  {
+    id: 8,
+    name: "Pasta",
+    quantity: 1,
   },
 ];
 
