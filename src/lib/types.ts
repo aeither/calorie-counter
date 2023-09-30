@@ -46,3 +46,54 @@ type FoodSearchCriteria = {
     totalPages: number;
     foods: Food[];
   };
+
+// Edamam Nutrition Analysis
+
+  interface Nutrient {
+    label: string;
+    quantity: number;
+    unit: string;
+  }
+  
+  interface Ingredient {
+    text: string;
+    parsed: {
+      quantity: number;
+      measure: string;
+      foodMatch: string;
+      food: string;
+      foodId: string;
+      weight: number;
+      retainedWeight: number;
+      nutrients: Record<string, Nutrient>;
+    }[];
+    measureURI: string;
+    status: string;
+  }
+  
+  interface TotalNutrients {
+    [key: string]: Nutrient;
+  }
+  
+  interface TotalDaily {
+    [key: string]: Nutrient;
+  }
+  
+  interface TotalNutrientsKCal {
+    [key: string]: Nutrient;
+  }
+  
+  export interface NutritionAnalysis {
+    uri: string;
+    calories: number;
+    totalCO2Emissions: number;
+    co2EmissionsClass: string;
+    totalWeight: number;
+    dietLabels: string[];
+    healthLabels: string[];
+    cautions: string[];
+    totalNutrients: TotalNutrients;
+    totalDaily: TotalDaily;
+    ingredients: Ingredient[];
+    totalNutrientsKCal: TotalNutrientsKCal;
+  }
