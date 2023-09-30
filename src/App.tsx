@@ -154,17 +154,19 @@ export default function Home() {
     <>
       {/* Telegram Main Button */}
       <MainButton
-        text="More"
-        onClick={() =>
-          WebApp.showPopup({
-            message: "Pop up",
-            buttons: [
-              { id: "default", type: "default", text: "Confirm" },
-              { id: "delete", type: "destructive", text: "Delete" },
-              { id: "cancel", type: "cancel" },
-            ],
-          })
-        }
+        text="Save"
+        onClick={() => {
+          WebApp.sendData("value test");
+          WebApp.close()
+          // WebApp.showPopup({
+          //   message: "Pop up",
+          //   buttons: [
+          //     { id: "default", type: "default", text: "Confirm" },
+          //     { id: "delete", type: "destructive", text: "Delete" },
+          //     { id: "cancel", type: "cancel" },
+          //   ],
+          // });
+        }}
       />
 
       <main className="flex min-h-screen flex-col items-center justify-center">
