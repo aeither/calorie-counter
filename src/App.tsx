@@ -156,12 +156,17 @@ export default function Home() {
         .join("");
 
       console.log(resultString);
+
+      WebApp.HapticFeedback.impactOccurred("medium");
+
       setCalorieAnalysis(resultString);
       setNutritionString(resultString);
     }
   }
 
   async function mainButtonAction() {
+    WebApp.HapticFeedback.impactOccurred("heavy");
+
     WebApp.sendData(calorieAnalysis);
     WebApp.close();
   }
@@ -226,6 +231,9 @@ export default function Home() {
     const cartItemsText = cart
       .map((cartItem) => `${cartItem.quantity * 100}g ${cartItem.name}, `)
       .join("\n");
+
+    WebApp.HapticFeedback.impactOccurred("medium");
+
     setCartText(cartItemsText);
     form.setValue("ingredients", cartItemsText);
   };
