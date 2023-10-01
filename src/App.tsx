@@ -115,12 +115,47 @@ async function getCalories(ingr: string) {
   }
 }
 
+async function resetCounterIfNewDay() {
+  const currentDate = new Date().toDateString();
+
+  try {
+    let storedDate: string | undefined;
+    WebApp.CloudStorage.getItem("counterResetDate", (_, result) => {
+      storedDate = result;
+    });
+
+    if (currentDate !== storedDate) {
+      await WebApp.CloudStorage.setItem("counter", "0");
+      await WebApp.CloudStorage.setItem("counterResetDate", currentDate);
+    }
+  } catch (error) {
+    console.error("Error resetting counter:", error);
+  }
+}
+
+async function incrementCounter(amount: string) {
+  await resetCounterIfNewDay();
+
+  try {
+    let counter = "0";
+    WebApp.CloudStorage.getItem("counter", (_, result) => {
+      if (result) {
+        counter = result;
+        const newTotal = (+counter + +amount).toString();
+        WebApp.CloudStorage.setItem("counter", newTotal.toString());
+        return newTotal;
+      }
+    });
+  } catch (error) {
+    console.error("Error incrementing counter:", error);
+  }
+}
+
 export default function Home() {
   const [items, setItems] = useState<Item[]>(initialItems);
   const [cart, setCart] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [cartText, setCartText] = useState<string>("");
-  const [calorieAnalysis, setCalorieAnalysis] = useState<string>("");
   const [nutritionString, setNutritionString] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -141,6 +176,7 @@ export default function Home() {
 
     if (nutritionAnalysis) {
       const calories = nutritionAnalysis.calories;
+      const todayCalories = await incrementCounter(calories.toString());
 
       // carb, protein, fat, calories
       const mapped = Object.entries(nutritionAnalysis.totalNutrientsKCal).map(
@@ -151,15 +187,16 @@ export default function Home() {
         })
       );
 
-      const resultString = mapped
+      let resultString = mapped
         .map((item) => `${item.label} ${item.quantity}${item.unit} \n`)
         .join("");
+
+      resultString = `Today Total: ${todayCalories} \n` + resultString;
 
       console.log(resultString);
 
       WebApp.HapticFeedback.impactOccurred("medium");
 
-      setCalorieAnalysis(resultString);
       setNutritionString(resultString);
     }
   }
@@ -167,7 +204,7 @@ export default function Home() {
   async function mainButtonAction() {
     WebApp.HapticFeedback.impactOccurred("heavy");
 
-    WebApp.sendData(calorieAnalysis);
+    WebApp.sendData(nutritionString);
     WebApp.close();
   }
 
@@ -250,7 +287,7 @@ export default function Home() {
   return (
     <>
       {/* Telegram Main Button */}
-      {calorieAnalysis !== "" && (
+      {nutritionString !== "" && (
         <MainButton
           text="Save to chat"
           onClick={() => {
@@ -433,6 +470,26 @@ export default function Home() {
               </div>
             </form>
           </Form>
+
+          <div>
+            <button
+              onClick={() => {
+                incrementCounter((100).toString());
+              }}
+            >
+              increase
+            </button>
+            <button
+              onClick={() => {
+                WebApp.CloudStorage.getItem("counter", (_, result) => {
+                  console.log("counter");
+                  console.log(result);
+                });
+              }}
+            >
+              test
+            </button>
+          </div>
         </div>
       </main>
     </>
