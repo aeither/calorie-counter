@@ -136,19 +136,21 @@ async function resetCounterIfNewDay() {
 async function incrementCounter(amount: string) {
   await resetCounterIfNewDay();
 
-  try {
-    let counter = "0";
+  return new Promise((resolve, reject) => {
     WebApp.CloudStorage.getItem("counter", (_, result) => {
       if (result) {
-        counter = result;
+        const counter = result;
         const newTotal = (+counter + +amount).toString();
-        WebApp.CloudStorage.setItem("counter", newTotal.toString());
-        return newTotal;
+
+        WebApp.CloudStorage.setItem("counter", newTotal.toString(), () => {
+          console.log("Counter incremented. New total:", newTotal);
+          resolve(newTotal); // Resolve the promise with the new total
+        });
+      } else {
+        reject("Counter not found"); // Reject the promise if the counter is not found
       }
     });
-  } catch (error) {
-    console.error("Error incrementing counter:", error);
-  }
+  });
 }
 
 export default function Home() {
@@ -175,6 +177,8 @@ export default function Home() {
     console.log(nutritionAnalysis);
 
     if (nutritionAnalysis) {
+      WebApp.HapticFeedback.impactOccurred("medium");
+
       const calories = nutritionAnalysis.calories;
       const todayCalories = await incrementCounter(calories.toString());
 
@@ -195,8 +199,6 @@ export default function Home() {
 
       console.log(resultString);
 
-      WebApp.HapticFeedback.impactOccurred("medium");
-
       setNutritionString(resultString);
     }
   }
@@ -215,7 +217,7 @@ export default function Home() {
       (cartItem) => cartItem.id === item.id
     );
 
-    WebApp.HapticFeedback.impactOccurred("medium");
+    WebApp.HapticFeedback.impactOccurred("light");
 
     if (existingItem) {
       existingItem.quantity++;
@@ -243,6 +245,7 @@ export default function Home() {
       }
     }
 
+    WebApp.HapticFeedback.impactOccurred("light");
     setCart(updatedCart);
   };
 
@@ -256,11 +259,14 @@ export default function Home() {
       existingItem.quantity++;
     }
 
+    WebApp.HapticFeedback.impactOccurred("light");
     setCart(updatedCart);
   };
 
   const removeItem = (item: Item) => {
     const updatedCart = cart.filter((cartItem) => cartItem.id !== item.id);
+
+    WebApp.HapticFeedback.impactOccurred("medium");
     setCart(updatedCart);
   };
 
@@ -471,7 +477,7 @@ export default function Home() {
             </form>
           </Form>
 
-          <div>
+          {/* <div>
             <button
               onClick={() => {
                 incrementCounter((100).toString());
@@ -489,7 +495,7 @@ export default function Home() {
             >
               test
             </button>
-          </div>
+          </div> */}
         </div>
       </main>
     </>
