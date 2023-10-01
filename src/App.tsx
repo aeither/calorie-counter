@@ -173,6 +173,8 @@ export default function Home() {
       (cartItem) => cartItem.id === item.id
     );
 
+    WebApp.HapticFeedback.impactOccurred("medium");
+
     if (existingItem) {
       existingItem.quantity++;
     } else {
@@ -242,7 +244,7 @@ export default function Home() {
       {/* Telegram Main Button */}
       {calorieAnalysis !== "" && (
         <MainButton
-          text="Save"
+          text="Save to chat"
           onClick={() => {
             console.log("main button save");
             mainButtonAction();
@@ -259,14 +261,14 @@ export default function Home() {
       )}
 
       <main className="flex min-h-screen flex-col items-center justify-center">
-        <div className="py-4">
+        <div className="p-4">
           <div className="space-y-2 pb-4">
             <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">
               Calorie counter
             </h1>
             <p className="text-lg text-muted-foreground">
               <span className="display: inline-block; vertical-align: top; text-decoration: inherit; max-width: 340px;">
-                Track your calories
+                Make sure you know how many calories you're eating
               </span>
             </p>
           </div>
@@ -304,7 +306,7 @@ export default function Home() {
                           <>
                             <Card>
                               <CardHeader>
-                                <CardTitle>Choose</CardTitle>
+                                <CardTitle>Suggestions</CardTitle>
                               </CardHeader>
                               <CardContent>
                                 <ul className="flex flex-col gap-1 pb-4">
@@ -326,6 +328,12 @@ export default function Home() {
                                   ))}
                                 </ul>
                                 <Separator />
+
+                                <div className="pt-2">
+                                  <p className="text-muted-foreground">
+                                    Measured in 100g
+                                  </p>
+                                </div>
 
                                 {/* List of items user can Increase, Reduce or Remove */}
                                 <ul className="pt-4">
@@ -377,7 +385,7 @@ export default function Home() {
                             </Card>
 
                             {/* List of items user can edit */}
-                            <h2>Items</h2>
+                            <h2>Selected Items</h2>
                             <Textarea
                               value={cartText}
                               onChange={(e) => setCartText(e.target.value)}
@@ -408,13 +416,15 @@ export default function Home() {
                 )}
               /> */}
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Show calories</Button>
+
+              <div className="space-y-2 pb-4">
+                <p className="text-lg text-muted-foreground">
+                  {nutritionString}
+                </p>
+              </div>
             </form>
           </Form>
-
-          <div className="p-4 ">
-            <p>{nutritionString}</p>
-          </div>
         </div>
       </main>
     </>
