@@ -87,7 +87,6 @@ export default function Home() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const nutritionAnalysis = await getCalories(cartText);
 
-    console.log("values:", values);
     console.log("calories: ");
     console.log(nutritionAnalysis);
 
@@ -203,7 +202,6 @@ export default function Home() {
         <MainButton
           text="Save to chat"
           onClick={() => {
-            console.log("main button save");
             mainButtonAction();
           }}
         />
