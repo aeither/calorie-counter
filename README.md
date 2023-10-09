@@ -21,6 +21,25 @@ Then you can customize with foods that are not on the list in the field after yo
 
 At this point, you should be able to see a sticky blue button at the bottom to send the total back to the chat. In this way, you can keep track of your meal intake. The total calories will add up for the same day and reset for a new day.
 
+# Instructions
+
+Open @BotFather and create a new bot.
+Copy the bot token and go to the calorie-counter-bot repository to update the .env TELEGRAM_BOT_TOKEN with the token for local development and TELEGRAM_BOT_TOKEN_LIVE for production. 
+
+You can choose to host it on whatever server you like. The server I used, which I also recommend, is Deno Deploy.
+As a requirement, Deno should be installed on your system. 
+
+To start local development, run the command: 
+
+```text 
+deno task dev
+```
+
+There is a script to set up the bot commands and a webhook for the live version.
+Open `scripts/index.ts` update it with your own URL, and run deno task commands. The current app it opens is mine. You should update `WEBAPP_URL` inside `src/bot.ts` to yours.
+
+When developing the calorie counter, ngrok can be used to expose the URL to the bot. Otherwise, deploy it to a server and update the URL to point to it correctly.
+
 # Feature Highlights
 
 Track Calories: Log what you eat and drink each day.
@@ -62,17 +81,6 @@ WebApp.CloudStorage.setItem("counter", newTotal.toString(), () => {
   resolve(newTotal); // Resolve the promise with the new total
 });
 ```
-
-
-# Instructions
-
-Open BotFather and create a new bot.
-
-Copy the bot token and go to the calorie-counter-bot repository to update the .env TELEGRAM_BOT_TOKEN with the token for local development and TELEGRAM_BOT_TOKEN_LIVE for production. You can choose to host it on whatever server you like. The server I used, which I also recommend, is Deno Deploy.
-As a requirement, Deno should be installed on your system. To start local development, run the command "deno task dev". There is a script to set up the bot commands and a webhook for the live version. Open "scripts/index.ts," update it with your own URL, and run deno task commands. The current app it opens is mine. Update WEBAPP_URL inside src/bot.ts to yours.
-
-When developing the calorie counter, ngrok can be used to expose the URL to the bot. Otherwise, deploy it to a server and update the URL to point to it correctly.
-
 
 # Screenshots
 
