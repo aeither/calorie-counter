@@ -2,7 +2,7 @@
 
 A Telegram Mini App to keep track of your calorie intake easily.
 
-For the bot.
+The repository of the bot can be found in the following repository. (It can also be found in this repository inside calorie-counter-bot folder)
 https://github.com/aeither/calorie-counter-bot
 
 # DEMO
@@ -11,7 +11,7 @@ https://t.me/caloriecounterlive_bot
 
 # Overview
 
-@caloriecounterlive_bot – a Mini App that helps you track your daily calorie intake. User is presented with an interface where they can select food items, adjust the amount, customize with more items to calculate the total calories and finally add the result back to the chat.
+@caloriecounterlive_bot – a Mini App that helps you track your daily calorie intake. The user is presented with an interface where they can select food items, adjust the amount, customize with more items to calculate the total calories, and finally add the result back to the chat.
 
 # How it works
 
