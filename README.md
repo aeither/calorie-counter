@@ -1,11 +1,21 @@
 # Calorie Counter
 
+<div align="center">
+    <img src="https://github.com/aeither/calorie-counter/assets/36173828/150dac35-bae7-4604-bdf6-e24e0001d065" alt="Logo" >
+</div>
+
 A Telegram Mini App to keep track of your calorie intake easily.
 
 The repository of the bot can be found in the following repository. (It can also be found in this repository inside calorie-counter-bot folder)
 https://github.com/aeither/calorie-counter-bot
 
 # DEMO
+
+Watch the demo:
+
+https://github.com/aeither/calorie-counter/assets/36173828/d5f32105-ac10-42c0-ada8-e559abe0089f
+
+Try it out:
 
 https://t.me/caloriecounterlive_bot
 
