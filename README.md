@@ -1,8 +1,8 @@
-# Calorie Counter
-
 <div align="center">
     <img src="https://github.com/aeither/calorie-counter/assets/36173828/150dac35-bae7-4604-bdf6-e24e0001d065" alt="Logo" >
 </div>
+
+# Calorie Counter
 
 A Telegram Mini App to keep track of your calorie intake easily.
 
