@@ -37,12 +37,6 @@ Share data from mini app back to the chat.
 WebApp.sendData(nutritionString);
 ```
 
-Share data from mini app back to the chat.
-
-```js
-WebApp.close();
-```
-
 Store calories for the day.
 
 ```js
@@ -81,8 +75,10 @@ When developing the calorie counter, ngrok can be used to expose the URL to the 
 
 
 # Screenshots
-![ChatBot](https://github.com/aeither/calorie-counter/assets/36173828/0a866086-2a94-4864-a6a6-92aef7290bb2)
 
-![ui-2](https://github.com/aeither/calorie-counter/assets/36173828/3c01ea8d-2f92-4dd1-8f20-aa6e3c5f07b5)
+![calorie-counter-1](https://github.com/aeither/calorie-counter/assets/36173828/0c9562d4-efc6-4a0e-aa84-e749b6372eab)
 
-![ui-1](https://github.com/aeither/calorie-counter/assets/36173828/705b850b-32eb-4af7-83ef-a7a66b7aebcd)
+![calorie-counter-2](https://github.com/aeither/calorie-counter/assets/36173828/68788834-d9fd-4ea7-92c9-ee219741a423)
+
+![calorie-counter-3](https://github.com/aeither/calorie-counter/assets/36173828/0c2af894-ae51-4f86-841a-5f8a51359cc5)
+
