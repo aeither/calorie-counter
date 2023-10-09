@@ -11,7 +11,7 @@ https://t.me/caloriecounterlive_bot
 
 # Overview
 
-The Calorie Counter is a telegram mini app that helps you track your daily calorie intake.
+@caloriecounterlive_bot – a Mini App that helps you track your daily calorie intake. User is presented with an interface where they can select food items, adjust the amount, customize with more items to calculate the total calories and finally add the result back to the chat.
 
 # How it works
 
