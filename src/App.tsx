@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form.tsx";
 import { Separator } from "@/components/ui/separator.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
-import { Item, NutritionAnalysis } from "@/lib/types.ts";
+import { Item } from "@/lib/types.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import WebApp from "@twa-dev/sdk";
 import { MainButton } from "@twa-dev/sdk/react";
@@ -61,10 +61,10 @@ async function incrementCounter(amount: string) {
 
         WebApp.CloudStorage.setItem("counter", newTotal.toString(), () => {
           console.log("Counter incremented. New total:", newTotal);
-          resolve(newTotal); // Resolve the promise with the new total
+          resolve(newTotal);
         });
       } else {
-        reject("Counter not found"); // Reject the promise if the counter is not found
+        reject("Counter not found");
       }
     });
   });
@@ -96,7 +96,7 @@ export default function Home() {
       const calories = nutritionAnalysis.calories;
       const todayCalories = await incrementCounter(calories.toString());
 
-      // carb, protein, fat, calories
+      // map carb, protein, fat, calories
       const mapped = Object.entries(nutritionAnalysis.totalNutrientsKCal).map(
         ([key, value]) => ({
           label: value.label,
@@ -117,14 +117,13 @@ export default function Home() {
     }
   }
 
-  async function mainButtonAction() {
+  async function sendData2Chat() {
     WebApp.HapticFeedback.impactOccurred("heavy");
 
     WebApp.sendData(nutritionString);
     WebApp.close();
   }
 
-  // Ingredients
   const addToSelected = (item: Item) => {
     const updatedCart = [...cart];
     const existingItem = updatedCart.find(
@@ -155,7 +154,7 @@ export default function Home() {
         (cartItem) => cartItem.id === item.id
       );
       if (itemIndex !== -1) {
-        updatedCart.splice(itemIndex, 1); // Remove the item from the cart if quantity is 1 or less
+        updatedCart.splice(itemIndex, 1);
       }
     }
 
@@ -197,12 +196,12 @@ export default function Home() {
 
   return (
     <>
-      {/* Telegram Main Button */}
+      {/* Send data back to Chat */}
       {nutritionString !== "" && (
         <MainButton
           text="Save to chat"
           onClick={() => {
-            mainButtonAction();
+            sendData2Chat();
           }}
         />
       )}
